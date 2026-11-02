@@ -35,8 +35,7 @@ onUnmounted(() => { window.removeEventListener('keydown', onKey); clearTimeout(t
 <template>
   <div class="app">
     <header class="topbar">
-      <a class="brand" href="#"><span class="brand-mark">✳</span><span class="brand-name">mana<span>table</span></span></a>
-      <div class="session"><i></i> TABLE IN SESSION</div>
+      <a class="brand" href="#"><span class="brand-mark">✳</span><span class="brand-name">MTG <span>Tools</span></span></a>
       <button class="life-pill" @click="showDamage=true"><span>YOUR LIFE</span><b>{{ life }}</b><em>♥</em></button>
     </header>
     <main class="layout">
@@ -67,7 +66,7 @@ onUnmounted(() => { window.removeEventListener('keydown', onKey); clearTimeout(t
         </div>
         <div v-if="selectionMode&&selected" class="selection-bar"><span><b>{{ selected }}</b> selected</span><button @click="removeSelected"><svg viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M5 7l1 14h12l1-14M9 7V4h6v3"/></svg>Remove selected</button></div>
       </section>
-      <aside class="aside"><div class="aside-card"><div class="aside-label">SESSION NOTES</div><h2>A little help at the table.</h2><p>Tap <b>+</b> to add counters. Clone a creature when your board grows. Select several to clear them at once.</p><div class="rule"></div><div class="board-power"><span>BOARD POWER</span><b>{{ totalPower }}<small> total ATK</small></b></div><button class="aside-calc" @click="showDamage=true"><i>↗</i> Open damage calculator</button></div><div class="footer"><span>✳</span><div>Made for the moments<br>between the turns.</div><small>v 1.0</small></div></aside>
+      <aside class="aside"><div class="aside-card"><div class="aside-label">SESSION NOTES</div><h2>A little help at the table.</h2><p>Tap <b>+</b> to add counters. Clone a creature when your board grows. Select several to clear them at once.</p><div class="rule"></div><div class="board-power"><span>BOARD POWER</span><b>{{ totalPower }}<small> total ATK</small></b></div><button class="aside-calc" @click="showDamage=true"><i>↗</i> Open damage calculator</button></div></aside>
     </main>
     <div v-if="showDamage" class="backdrop" @click.self="showDamage=false">
       <section class="modal" role="dialog" aria-modal="true" aria-labelledby="calc-title"><button class="modal-close" @click="showDamage=false" aria-label="Close">×</button><div class="eyebrow">THE MATH, MADE EASY</div><h2 id="calc-title">Damage calculator<span>.</span></h2>
