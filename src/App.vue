@@ -48,15 +48,10 @@ onUnmounted(() => { window.removeEventListener('keydown', onKey); clearTimeout(t
         <div v-if="tokens.length" class="grid" :class="{selecting:selectionMode}">
           <article v-for="(token,i) in tokens" :key="token.id" class="token" :class="{chosen:token.selected}" :style="{'--bg':palette[token.color]?.bg||palette[0].bg,'--ink':palette[token.color]?.ink||palette[0].ink,'--accent':palette[token.color]?.accent||palette[0].accent,'--order':i}">
             <button v-if="selectionMode" class="check" :aria-label="token.selected?'Deselect token':'Select token'" @click="token.selected=!token.selected">{{ token.selected?'✓':'' }}</button>
-            <div class="card-top"><span class="symbol">{{ palette[token.color]?.icon||'✳' }}</span><span class="kind">CREATURE TOKEN</span><button class="clone" aria-label="Clone token" @click="clone(token)"><svg viewBox="0 0 24 24"><path d="M8 8V5a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-3M5 8h9a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2Z"/></svg></button></div>
+            <div class="card-top"><span class="token-name">Token</span><button class="clone" aria-label="Clone token" @click="clone(token)"><svg viewBox="0 0 24 24"><path d="M8 8V5a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-3M5 8h9a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2Z"/></svg></button></div>
             <div class="art"><i></i><i></i><span>{{ palette[token.color]?.icon||'✳' }}</span></div>
-            <div class="token-name">{{ token.name }}</div><div class="subtitle">TOKEN CREATURE</div>
-            <div class="stats">
-              <div class="stat"><button @click="adjust(token,'power',1)" aria-label="Increase attack">+</button><small>ATK</small><b>{{ token.power }}</b></div>
-              <button class="pump" aria-label="Add plus one plus one counter" @click="adjust(token,'power',1);adjust(token,'toughness',1)">+<small>/+</small></button>
-              <div class="stat"><button @click="adjust(token,'toughness',1)" aria-label="Increase defense">+</button><small>DEF</small><b>{{ token.toughness }}</b></div>
-            </div>
-            <div class="substats"><button @click="adjust(token,'power',-1)">− ATK</button><i></i><button @click="adjust(token,'toughness',-1)">− DEF</button></div>
+            <div class="subtitle"><span class="symbol">{{ palette[token.color]?.icon||'✳' }}</span><span class="type-label">Token Creature — {{ token.name }}</span></div>
+            <div class="card-footer"><button class="pump" aria-label="Increase attack and defense by one" @click="adjust(token,'power',1);adjust(token,'toughness',1)">+1/+1</button><div class="power-toughness" :aria-label="`${token.power} attack, ${token.toughness} defense`"><div class="pt-stat"><b>{{ token.power }}</b><span class="pt-arrows"><button aria-label="Increase attack" @click="adjust(token,'power',1)"><span class="triangle up"></span></button><button aria-label="Decrease attack" @click="adjust(token,'power',-1)"><span class="triangle down"></span></button></span></div><span class="pt-slash">/</span><div class="pt-stat"><b>{{ token.toughness }}</b><span class="pt-arrows"><button aria-label="Increase defense" @click="adjust(token,'toughness',1)"><span class="triangle up"></span></button><button aria-label="Decrease defense" @click="adjust(token,'toughness',-1)"><span class="triangle down"></span></button></span></div></div></div>
           </article>
         </div>
         <div v-else class="empty"><div>✳</div><h2>A clean battlefield.</h2><p>Add a token to start building your side of the table.</p></div>
