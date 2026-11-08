@@ -16,6 +16,10 @@
 .token-name{flex:1;min-width:0;font:700 15px/1.15 'Playfair Display',serif;letter-spacing:.15px;text-align:center;color:#27251f}
 .clone{flex:0 0 auto;width:24px;height:24px;padding:4px;border-radius:50%;opacity:.65}
 .clone svg{width:14px;height:14px}
+.card-top .clone{margin-left:auto}
+.delete-card{flex:0 0 auto;width:24px;height:24px;padding:4px;display:grid;place-items:center;border:0;border-radius:50%;background:transparent;color:#8b4135;opacity:.72}
+.delete-card:hover{background:#8b41351a;opacity:1}
+.delete-card svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 .art{height:126px;margin:7px 0 5px;border:3px solid #d8d0ba;border-radius:4px;background:radial-gradient(ellipse at 50% 44%,color-mix(in srgb,var(--bg) 90%,white),color-mix(in srgb,var(--accent) 42%,#343630) 66%,#262822);box-shadow:inset 0 0 0 1px #706752,0 1px 3px #0008}
 .art>span{font-size:66px;color:color-mix(in srgb,var(--ink) 72%,var(--accent));text-shadow:0 2px 1px #fff8,0 0 24px color-mix(in srgb,var(--accent) 75%,transparent)}
 .art i{width:132px;height:76px;border-color:color-mix(in srgb,var(--accent) 45%,#f3ebd5);opacity:.8}

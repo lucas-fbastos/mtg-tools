@@ -7,7 +7,7 @@ const props = defineProps({
   selectionMode: { type: Boolean, default: false },
   order: { type: Number, default: 0 },
 })
-const emit = defineEmits(['adjust', 'clone', 'toggle-selection'])
+const emit = defineEmits(['adjust', 'clone', 'delete', 'toggle-selection'])
 const colors = computed(() => props.palette[props.token.color] || props.palette[0])
 const cardStyle = computed(() => ({
   '--bg': colors.value.bg,
@@ -26,6 +26,9 @@ function adjust(stat, delta) { emit('adjust', stat, delta) }
       <span class="token-name">Token</span>
       <button class="clone" aria-label="Clone token" @click="emit('clone')">
         <svg viewBox="0 0 24 24"><path d="M8 8V5a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-3M5 8h9a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2Z" /></svg>
+      </button>
+      <button class="delete-card" :aria-label="`Delete ${token.name} token`" @click="emit('delete')">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M5 7l1 14h12l1-14M9 7V4h6v3" /></svg>
       </button>
     </div>
     <div class="art"><i></i><i></i><span>{{ colors.icon }}</span></div>

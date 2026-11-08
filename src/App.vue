@@ -37,6 +37,10 @@ function addToken() {
 }
 function adjust(token, stat, delta) { token[stat] = Math.max(0, token[stat] + delta) }
 function clone(token) { tokens.value.push({ ...token, id: Date.now() + Math.random(), selected: false }); notify(token.name + ' cloned') }
+function removeToken(token) {
+  tokens.value = tokens.value.filter(card => card.id !== token.id)
+  notify(token.name + ' removed')
+}
 function toggleAll() { tokens.value.forEach(token => { token.selected = !allSelected.value }) }
 function removeSelected() {
   const count = selected.value
@@ -81,7 +85,7 @@ onUnmounted(() => { window.removeEventListener('keydown', onKey); clearTimeout(t
           <TokenCard v-for="(token, index) in tokens" :key="token.id" :token="token" :palette="palette"
             :selection-mode="selectionMode" :order="index"
             @adjust="(stat, delta) => adjust(token, stat, delta)"
-            @clone="clone(token)" @toggle-selection="token.selected = !token.selected" />
+            @clone="clone(token)" @delete="removeToken(token)" @toggle-selection="token.selected = !token.selected" />
         </div>
         <div v-else class="empty">
           <div>✳</div>
