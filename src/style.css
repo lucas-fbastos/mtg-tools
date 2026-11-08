@@ -8,8 +8,8 @@
 @media(orientation:landscape) and (max-height:520px) and (max-width:620px){.layout{width:calc(100% - 30px);grid-template-columns:minmax(0,1fr) 170px;gap:14px}.grid{grid-template-columns:repeat(auto-fill,minmax(145px,1fr))}.token{min-height:220px;padding:7px 8px}.art{height:43px}.token-name{font-size:14px}.stats{height:38px}.aside{padding-top:35px}.aside-card{padding:11px}.aside-card h2{font-size:16px}.aside-card p{font-size:9px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
 
-/* Token cards use a classic black frame, parchment title/type bars, and a symbol-led art window. */
-.token{padding:9px 9px 8px;min-height:316px;border:2px solid #201d19;border-radius:13px;background:linear-gradient(135deg,#37332c,#171614 28%,#26231f 72%,#12110f);color:#f4eedf;box-shadow:0 3px 9px #18231b20,inset 0 0 0 1px #827454;}
+/* Token cards use their selected mana color as the frame and background. */
+.token{padding:9px 9px 8px;min-height:316px;border:2px solid color-mix(in srgb,var(--accent) 80%,#27231d);border-radius:13px;background:linear-gradient(135deg,color-mix(in srgb,var(--bg) 88%,white),var(--bg) 28%,color-mix(in srgb,var(--bg) 82%,#151412) 100%);color:var(--ink);box-shadow:0 3px 9px #18231b20,inset 0 0 0 1px color-mix(in srgb,var(--accent) 55%,transparent);}
 .token:hover{box-shadow:0 10px 24px #18231b2c,inset 0 0 0 1px #aa9565}
 .token.chosen{border:2px solid #577558;box-shadow:0 0 0 3px #57755835,inset 0 0 0 1px #d4c18d}
 .card-top{height:31px;gap:7px;padding:3px 5px 3px 10px;border:1px solid #7c7567;border-radius:9px;background:linear-gradient(#fffdf5,#e8e1d2);box-shadow:inset 0 0 0 2px #fffefa;color:#25231e}
@@ -98,3 +98,52 @@
 @media(max-width:620px){.art{height:118px}.card-footer{min-height:46px}.power-toughness{min-height:40px;padding:3px 6px;gap:4px}.pt-stat>b{font-size:21px}.pt-arrows button{width:13px;height:12px}}
 .card-footer .pump{width:50px;font-size:15px;white-space:nowrap}
 @media(max-width:370px){.art{height:104px}.power-toughness{min-height:38px}.pt-stat>b{font-size:19px}.card-footer .pump{width:48px;font-size:14px}}
+
+.color-picker-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:11px}
+.selected-color{display:flex;align-items:center;gap:7px;color:#69766a;font-size:11px;font-weight:600}
+.selected-color i,.color-choice i{display:block;width:17px;height:17px;border:1px solid #20251f35;border-radius:50%;background:var(--dot-color);box-shadow:inset 0 1px 2px #ffffff70,0 1px 2px #1d281c20}
+.pick-color{border:1px solid #c9d1c4;border-radius:5px;background:#f8f8f1;color:#45614b;padding:7px 10px;font-size:10px;font-weight:700}
+.pick-color span{padding-left:5px;color:#83917e}
+.color-picker{position:relative;width:min(100%,230px);height:166px;margin:5px auto 1px;border-radius:12px;background:radial-gradient(circle,#f8f8f1 0 3px,#e6e9df 4px,transparent 5px)}
+.color-choice{position:absolute;left:var(--x);top:var(--y);transform:translate(-50%,-50%);width:36px;height:36px;padding:0;display:grid;place-items:center;border:0;background:transparent}
+.color-choice i{width:22px;height:22px;border:2px solid #f8f8f1;box-shadow:0 1px 4px #1b2b1f40,inset 0 1px 2px #ffffff65;transition:transform .15s,box-shadow .15s}
+.color-choice:hover i{transform:scale(1.12)}
+.color-choice.selected i{outline:2px solid #47634c;outline-offset:2px;transform:scale(1.08)}
+
+.stack-toggle svg{width:16px;height:16px}
+.token.stacked{z-index:1;overflow:visible;isolation:isolate;margin-right:6px;margin-bottom:6px}
+.token.stacked::before,.token.stacked::after{content:"";position:absolute;z-index:-1;border:1px solid color-mix(in srgb,var(--accent) 78%,#27231d);border-radius:12px;background:linear-gradient(135deg,color-mix(in srgb,var(--bg) 88%,white),var(--bg) 35%,color-mix(in srgb,var(--bg) 82%,#151412));box-shadow:0 2px 4px #18231b20;pointer-events:none}
+.token.stacked::before{inset:4px -4px -4px 4px}
+.token.stacked::after{inset:8px -8px -8px 8px}
+.stack-count{flex:0 0 auto;padding:3px 6px;border:1px solid #c9bf9c;border-radius:999px;background:#f4eedf;color:#405640;font:700 9px 'DM Mono',monospace;line-height:1;box-shadow:0 1px 3px #1a221833}
+
+.aside{position:sticky;top:24px;padding-top:0}
+.token-creator{margin-bottom:14px}
+@media(max-width:620px){
+  .aside{display:block;position:static;padding:0;margin:0}
+  .aside-card{display:none}
+  .token-creator{margin:0}
+  .token-creator>.add-token{position:fixed;z-index:9;right:18px;bottom:calc(18px + env(safe-area-inset-bottom));width:56px;height:56px;min-height:56px;padding:0;justify-content:center;gap:0;border:0;border-radius:50%;background:#315b43;color:#fff;box-shadow:0 5px 18px #17291f45}
+  .token-creator>.add-token:hover{background:#264d37}
+  .token-creator>.add-token .add-icon{width:auto;height:auto;border:0;color:#fff;font-size:32px;line-height:1}
+  .token-creator>.add-token>span:not(.add-icon),.token-creator>.add-token>i{display:none}
+  .token-creator>.name-form{position:fixed;z-index:9;right:16px;bottom:calc(86px + env(safe-area-inset-bottom));width:min(420px,calc(100vw - 32px));max-height:calc(100dvh - 112px - env(safe-area-inset-bottom));overflow:auto;box-shadow:0 10px 32px #14251d35}
+}
+
+@media(min-width:621px){
+  .layout{grid-template-columns:minmax(0,1fr) 270px}
+  .token-creator>.add-token{min-height:76px;padding:13px 17px;gap:14px}
+  .token-creator>.add-token .add-icon{width:42px;height:42px;font-size:27px}
+  .token-creator>.add-token b{font-size:14px}
+  .token-creator>.add-token small{font-size:11px}
+  .token-creator>.name-form{padding:17px 18px}
+  .aside-card{padding:25px 22px}
+  .aside-card h2{font-size:22px;margin:15px 0 11px}
+  .aside-card p{font-size:12px;line-height:1.7}
+  .rule{margin:20px 0 16px}
+  .board-power>span{font-size:10px}
+  .board-power>b{font-size:22px}
+  .aside-calc{min-height:48px;padding:9px 11px;font-size:11px}
+}
+@media(min-width:1200px){.layout{grid-template-columns:minmax(0,760px) 280px;gap:80px}}
+@media(min-width:621px) and (max-width:800px){.layout{grid-template-columns:minmax(0,1fr) clamp(190px,28vw,220px);gap:24px}.aside-card{padding:21px 18px}}
